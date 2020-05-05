@@ -6,8 +6,18 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 - pronotepy
 - discord.py
 
+# How to use ?
+- Install node, npm, python3 and pip3
+- Clone that repo
+- Clone litarvan's API repo
+- Install dependencies (pip3 install discord aiohttp html2text validators), ```npm -i``` for litarvan's repo
+- Edit credentials.py with your own values
+- Start litarvan's API with node index.js
+- Start that bot with python3 probote.py
+
 # How to contribute ?
 You can contribute by submitting pull requests
 
 # Author
 Alexis LEBEL (@Alestrio0)
+A little bit inspired by busybox11's work (https://github.com/busybox11/probote)
