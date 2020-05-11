@@ -31,19 +31,20 @@ class DiscordBot(commands.Bot):
         print('Succesfully logged in for Discord as {0.user}'.format(bot))
 
     async def on_message(self, message):
-        print(message.content)
         if message.content.startswith('pro sync'):
             await self.updateChannel(self.pronote.getLessons(), self.pronote.getHomeworks(), message.channel)
 
         return None
 
     async def updateChannel(self, lessons, homeworks, channel):
-        print('abcdef')
+        self.homework_channel = self.get_channel(credentials.homework_channel)
+        await self.homework_channel.send("DEVOIRS :")
         for hw in homeworks:
-            #self.homework_channel.send(hw)
-            await channel.send(hw)
-        #for le in lessons:
-        #    await self.lessons_channel.send(le)
+            await self.homework_channel.send(hw)
+            #await channel.send(hw)
+        # await self.homework_channel.send("CONTENU DES COURS :")
+        # for le in lessons:
+        #     await self.homework_channel.send(le)
         return None
 
 bot = DiscordBot()
