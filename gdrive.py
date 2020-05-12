@@ -22,8 +22,6 @@ class GDrive():
         return None
 
     def getSubfolders(self, folderId):
-        kwargs = {"q" : "",
-                "parents" : [{"id": folderId}]}
         subfolders = self.drive.ListFile({'q': f"'{folderId}' in parents and trashed=false and mimeType=\'application/vnd.google-apps.folder\'"}).GetList()
         return subfolders
 
@@ -38,11 +36,8 @@ class GDrive():
     def updateFolderHierarchy(self):
         ## TODO clear before updating
         for folder in self.folderHierarchy['general_folder']['subfolders']:
-            print(folder['displayName'])
             folderId = folder['id']
             subfolders = self.getSubfolders(folderId)
             for sf in subfolders:
-                print("""{"id" : "%s", "displayName" : "%s"}""" % (sf['id'], sf['title']))
-                print(sf['title'])
                 folder['subfolders'].append({"id" : sf['id'], "displayName" : sf['title']})
         return None

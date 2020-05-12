@@ -26,8 +26,6 @@ class DiscordBot(commands.Bot):
         self.pronote = pa.PronoteActions()
         self.drive = gdrive.GDrive()
 
-
-
         return None
 
     async def on_ready(self):
@@ -66,14 +64,12 @@ class DiscordBot(commands.Bot):
 
     async def updateChannel(self, homeworks):
         self.homework_channel = self.get_channel(credential.homework_channel)
-        #self.homework_channel = self.get_channel(558616293134303284)
         await self.homework_channel.send("DEVOIRS :")
         for hw in homeworks:
             formattedMessage = hw[0]
             for file in hw[1]:
                 formattedMessage +=  file.url + '\n'
             await self.homework_channel.send(formattedMessage)
-            #await channel.send(hw)
         # await self.homework_channel.send("CONTENU DES COURS :")
         # for le in lessons:
         #     await self.homework_channel.send(le)
@@ -82,7 +78,7 @@ class DiscordBot(commands.Bot):
     async def introduceBot(self):
         self.homework_channel = self.get_channel(credential.homework_channel)
         await self.homework_channel.send('Bonjour ! \n ' +
-        'Je suis un automate qui fait la liaison entre Discord, Pronote, et bientôt Google Drive ! \n' +
+        'Je suis un automate qui fait la liaison entre Discord, Pronote, et Google Drive ! \n' +
         'Voici mes commandes : \n' +
         '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
         '-pro introduce : permet d\'afficher ce message \n' +
@@ -106,13 +102,10 @@ class DiscordBot(commands.Bot):
             message += str(i) + ' - ' + folder['displayName'] + '\n'
             i += 1
             j = 0
-            #print(folder['subfolders'])
             for subf in folder['subfolders']:
                 message += '    ' + str(j) + ' - ' + "".join(subf["displayName"]) + '\n'
-                #print(subf)
                 j += 1
         await self.homework_channel.send(message)
-        print(message)
         return None
 
 bot = DiscordBot()

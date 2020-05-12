@@ -19,16 +19,16 @@ You can contribute by submitting pull requests
 
 # Functions we want to add
 - Google drive sync :
-  - [] Upload files from Pronote (in adapted folder)
-  - [] Upload files from Discord (in adapted folder)
-  - [] Create evaluations that can be uploaded and then gathered by teacher
-  - [] Files list
+  - [ ] Upload files from Pronote (in adapted folder)
+  - [ ] Upload files from Discord (in adapted folder)
+  - [ ] Create evaluations that can be uploaded and then gathered by teacher
+  - [ ] Files list
   - [x] Folders list
 
 - Pronote :
-  - [] Lessons content
-  - [] Messages (only broadcast messages)
-  - [] Auto sync (every x minutes or when a new homework is published)
+  - [ ] Lessons content
+  - [ ] Messages (only broadcast messages)
+  - [ ] Auto sync (every x minutes or when a new homework is published)
 
 
 # Author

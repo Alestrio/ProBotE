@@ -14,8 +14,6 @@ class PronoteActions():
         self.client = pronotepy.Client(credential.url, cookies=ac_reims(credential.username, credential.password))
         if self.client.logged_in:
             messages = self.client.messages()
-            #for mess in messages: #DEBUG
-            #    print(mess.content)
         else:
             print('no login')
         return None
