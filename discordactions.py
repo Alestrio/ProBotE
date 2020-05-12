@@ -6,6 +6,7 @@ from discord.ext import commands
 import logging
 import credential
 import pronoteactions as pa
+import gdrive
 
 
 class DiscordBot(commands.Bot):
@@ -23,6 +24,7 @@ class DiscordBot(commands.Bot):
         self.homework_channel = self.get_channel(credential.homework_channel)
         self.lessons_channel = 0
         self.pronote = pa.PronoteActions()
+        drive = gdrive.GDrive()
 
 
         return None
@@ -35,8 +37,30 @@ class DiscordBot(commands.Bot):
             await self.updateChannel(self.pronote.getHomeworks())
         if message.content.startswith('pro introduce'):
             await self.introduceBot()
+        if message.content.startswith('pro upload'):
+            splittedMsg = message.content.split(' ')
+            if len(splittedMsg) > 4:
+                self.sendUploadCommandErrorMsg()
+            else:
+                await file = message.attachment.to_file()
+                if len(splittedMsg) == 3:
+                    folderId = drive.parseFolderArgument(splittedMsg[2], 0)
+                    if folderId != None:
+                        drive.uploadFile(file, folderID)
+                    else:
+                        self.sendUploadCommandErrorMsg()
+                elif:
+                    len(splittedMsg) == 2:
+                    drive.uploadFile(file, credential.general_folder)
+                else:
+                    folderId = drive.parseFolderArgument(splittedMsg[2], splittedMsg[3])
+                    if folderId != None:
+                        drive.uploadFile(file, folderId)
+                    else:
+                        self.sendUploadCommandErrorMsg()
 
         return None
+
 
     async def updateChannel(self, homeworks):
         self.homework_channel = self.get_channel(credential.homework_channel)
@@ -60,11 +84,12 @@ class DiscordBot(commands.Bot):
         'Voici mes commandes : \n' +
         '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
         '-pro introduce : permet d\'afficher ce message \n' +
+        '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n ' +
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
-    def parseFolderArgument(self, arg:str):
+    def sendUploadCommandErrorMsg(self):
 
         return None
 

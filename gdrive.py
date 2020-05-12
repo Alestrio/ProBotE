@@ -1,25 +1,45 @@
 import pydrive
+import credential
+import json
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 
 class GDrive():
-    drive = 0
+
 
     def __init__(self):
-        gauth = pydrive.auth.GoogleAuth()
-        gauth.LocalWebServerAuth()
-        drive = pydrive.drive.GoogleDrive(gauth)
+        self.folderHierarchy = json.loads(credential.folderHierarchy)
+        gauth = GoogleAuth()
+        gauth.LocalWebserverAuth()
+        self.drive = GoogleDrive(gauth)
         return None
 
     def uploadFile(self, file, folderid):
-        gFile = drive.CreateFile({'parents': [{'id': folderid}]})
+        gFile = self.drive.CreateFile({'parents': [{'id': folderid}]})
         gFile.setContentFile(file)
         gFile.upload()
         return None
 
-    def getSubfolders(self):
-
-        return None
+    def getSubfolders(self, folderId):
+        kwargs = {"q" : "",
+                "parents" : [{"id": folderId}]}
+        subfolders = self.drive.ListFile({'q': f"'{folderId}' in parents and trashed=false and mimeType=\'application/vnd.google-apps.folder\'"}).GetList()
+        return subfolders
 
     def createSubfolder(self, name:str):
 
+        return None
+
+    def parseFolderArgument(self, primaryFolder:str, secondaryFolder:str):
+
+        return None
+
+    def updateFolderHierarchy(self):
+        for folder in self.folderHierarchy['general_folder']['subfolders']:
+            folderId = folder['id']
+            subfolders = self.getSubfolders(folderId)
+            for sf in subfolders:
+                folder['subfolders'] += '{\"id\" : \"' + sf['id'] + '\", \n \"displayName\" : \" ' + sf['title'] + ' \"} \n'
+                print("".join(folder['subfolders']))
         return None
