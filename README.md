@@ -23,6 +23,7 @@ You can contribute by submitting pull requests
   - [] Upload files from Discord (in adapted folder)
   - [] Create evaluations that can be uploaded and then gathered by teacher
   - [] Files list
+  - [x] Folders list
 
 - Pronote :
   - [] Lessons content
