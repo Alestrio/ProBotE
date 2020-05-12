@@ -36,10 +36,13 @@ class GDrive():
         return None
 
     def updateFolderHierarchy(self):
+        ## TODO clear before updating
         for folder in self.folderHierarchy['general_folder']['subfolders']:
+            print(folder['displayName'])
             folderId = folder['id']
             subfolders = self.getSubfolders(folderId)
             for sf in subfolders:
-                folder['subfolders'] += '{\"id\" : \"' + sf['id'] + '\", \n \"displayName\" : \" ' + sf['title'] + ' \"} \n'
-                print("".join(folder['subfolders']))
+                print("""{"id" : "%s", "displayName" : "%s"}""" % (sf['id'], sf['title']))
+                print(sf['title'])
+                folder['subfolders'].append({"id" : sf['id'], "displayName" : sf['title']})
         return None

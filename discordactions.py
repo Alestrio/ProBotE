@@ -24,7 +24,8 @@ class DiscordBot(commands.Bot):
         self.homework_channel = self.get_channel(credential.homework_channel)
         self.lessons_channel = 0
         self.pronote = pa.PronoteActions()
-        drive = gdrive.GDrive()
+        self.drive = gdrive.GDrive()
+
 
 
         return None
@@ -37,27 +38,28 @@ class DiscordBot(commands.Bot):
             await self.updateChannel(self.pronote.getHomeworks())
         if message.content.startswith('pro introduce'):
             await self.introduceBot()
-        if message.content.startswith('pro upload'):
-            splittedMsg = message.content.split(' ')
-            if len(splittedMsg) > 4:
-                self.sendUploadCommandErrorMsg()
-            else:
-                await file = message.attachment.to_file()
-                if len(splittedMsg) == 3:
-                    folderId = drive.parseFolderArgument(splittedMsg[2], 0)
-                    if folderId != None:
-                        drive.uploadFile(file, folderID)
-                    else:
-                        self.sendUploadCommandErrorMsg()
-                elif:
-                    len(splittedMsg) == 2:
-                    drive.uploadFile(file, credential.general_folder)
-                else:
-                    folderId = drive.parseFolderArgument(splittedMsg[2], splittedMsg[3])
-                    if folderId != None:
-                        drive.uploadFile(file, folderId)
-                    else:
-                        self.sendUploadCommandErrorMsg()
+        if message.content.startswith('pro dossiers'):
+            await self.sendFolderHierarchy()
+        # if message.content.startswith('pro upload'):
+        #     splittedMsg = message.content.split(' ')
+        #     if len(splittedMsg) > 4:
+        #         self.sendUploadCommandErrorMsg()
+        #     else:
+        #         await file = message.attachment.to_file()
+        #         if len(splittedMsg) == 3:
+        #             folderId = drive.parseFolderArgument(splittedMsg[2], 0)
+        #             if folderId != None:
+        #                 drive.uploadFile(file, folderID)
+        #             else:
+        #                 self.sendUploadCommandErrorMsg()
+        #         elif len(splittedMsg) == 2:
+        #             drive.uploadFile(file, credential.general_folder)
+        #         else:
+        #             folderId = drive.parseFolderArgument(splittedMsg[2], splittedMsg[3])
+        #             if folderId != None:
+        #                 drive.uploadFile(file, folderId)
+        #             else:
+        #                 self.sendUploadCommandErrorMsg()
 
         return None
 
@@ -89,8 +91,27 @@ class DiscordBot(commands.Bot):
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
-    def sendUploadCommandErrorMsg(self):
+    async def sendUploadCommandErrorMsg(self):
 
+        return None
+
+    async def sendFolderHierarchy(self):
+        self.homework_channel = self.get_channel(credential.homework_channel)
+        self.drive.updateFolderHierarchy()
+        fh = self.drive.folderHierarchy
+        message = 'Voici l\'arbre des dossiers du Drive : \n'
+        i = 0
+        for folder in fh['general_folder']['subfolders']:
+            message += str(i) + ' - ' + folder['displayName'] + '\n'
+            i += 1
+            j = 0
+            #print(folder['subfolders'])
+            for subf in folder['subfolders']:
+                message += '    ' + str(j) + ' - ' + "".join(subf["displayName"]) + '\n'
+                #print(subf)
+                j += 1
+        await self.homework_channel.send(message)
+        print(message)
         return None
 
 bot = DiscordBot()
