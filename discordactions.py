@@ -64,5 +64,9 @@ class DiscordBot(commands.Bot):
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
+    def parseFolderArgument(self, arg:str):
+
+        return None
+
 bot = DiscordBot()
 bot.run(credential.token)

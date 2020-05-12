@@ -2,3 +2,4 @@ __pycache__
 credential.py
 **.tmp
 discord.log
+googleApiId.json

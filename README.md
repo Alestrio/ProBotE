@@ -5,6 +5,7 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 # Dependencies
 - pronotepy by @bain3 and @Xiloe
 - discord.py
+- PyDrive
 
 # How to use ?
 - Install python3 and pip3
@@ -15,6 +16,19 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 
 # How to contribute ?
 You can contribute by submitting pull requests
+
+# Functions we want to add
+- Google drive sync :
+  - [] Upload files from Pronote (in adapted folder)
+  - [] Upload files from Discord (in adapted folder)
+  - [] Create evaluations that can be uploaded and then gathered by teacher
+  - [] Files list
+
+- Pronote :
+  - [] Lessons content
+  - [] Messages (only broadcast messages)
+  - [] Auto sync (every x minutes or when a new homework is published)
+
 
 # Author
 Alexis LEBEL (@Alestrio0)
