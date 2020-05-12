@@ -60,7 +60,8 @@ class DiscordBot(commands.Bot):
         'Voici mes commandes : \n' +
         '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
         '-pro introduce : permet d\'afficher ce message \n' +
-        'Bon courage !')
+        'Bon courage ! \n ' +
+        'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
 bot = DiscordBot()
