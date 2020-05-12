@@ -4,7 +4,7 @@
 import discord
 from discord.ext import commands
 import logging
-import credentials
+import credential
 import pronoteactions as pa
 
 
@@ -20,7 +20,7 @@ class DiscordBot(commands.Bot):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)
 
-        self.homework_channel = self.get_channel(credentials.homework_channel)
+        self.homework_channel = self.get_channel(credential.homework_channel)
         self.lessons_channel = 0
         self.pronote = pa.PronoteActions()
 
@@ -32,15 +32,19 @@ class DiscordBot(commands.Bot):
 
     async def on_message(self, message):
         if message.content.startswith('pro sync'):
-            await self.updateChannel(self.pronote.getLessons(), self.pronote.getHomeworks(), message.channel)
+            await self.updateChannel(self.pronote.getHomeworks())
 
         return None
 
-    async def updateChannel(self, lessons, homeworks, channel):
-        self.homework_channel = self.get_channel(credentials.homework_channel)
-        # await self.homework_channel.send("DEVOIRS :")
-        # for hw in homeworks:
-            #await self.homework_channel.send(hw)
+    async def updateChannel(self, homeworks):
+        self.homework_channel = self.get_channel(credential.homework_channel)
+        #self.homework_channel = self.get_channel(558616293134303284)
+        await self.homework_channel.send("DEVOIRS :")
+        for hw in homeworks:
+            formattedMessage = hw[0]
+            for file in hw[1]:
+                formattedMessage +=  file.url + '\n'
+            await self.homework_channel.send(formattedMessage)
             #await channel.send(hw)
         # await self.homework_channel.send("CONTENU DES COURS :")
         # for le in lessons:
@@ -48,4 +52,4 @@ class DiscordBot(commands.Bot):
         return None
 
 bot = DiscordBot()
-bot.run(credentials.token)
+bot.run(credential.token)
