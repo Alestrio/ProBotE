@@ -33,6 +33,8 @@ class DiscordBot(commands.Bot):
     async def on_message(self, message):
         if message.content.startswith('pro sync'):
             await self.updateChannel(self.pronote.getHomeworks())
+        if message.content.startswith('pro introduce'):
+            await self.introduceBot()
 
         return None
 
@@ -49,6 +51,16 @@ class DiscordBot(commands.Bot):
         # await self.homework_channel.send("CONTENU DES COURS :")
         # for le in lessons:
         #     await self.homework_channel.send(le)
+        return None
+
+    async def introduceBot(self):
+        self.homework_channel = self.get_channel(credential.homework_channel)
+        await self.homework_channel.send('Bonjour ! \n ' +
+        'Je suis un automate qui fait la liaison entre Discord, Pronote, et bientôt Google Drive ! \n' +
+        'Voici mes commandes : \n' +
+        '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
+        '-pro introduce : permet d\'afficher ce message \n' +
+        'Bon courage !')
         return None
 
 bot = DiscordBot()
