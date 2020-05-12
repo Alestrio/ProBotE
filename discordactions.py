@@ -38,9 +38,9 @@ class DiscordBot(commands.Bot):
 
     async def updateChannel(self, lessons, homeworks, channel):
         self.homework_channel = self.get_channel(credentials.homework_channel)
-        await self.homework_channel.send("DEVOIRS :")
-        for hw in homeworks:
-            await self.homework_channel.send(hw)
+        # await self.homework_channel.send("DEVOIRS :")
+        # for hw in homeworks:
+            #await self.homework_channel.send(hw)
             #await channel.send(hw)
         # await self.homework_channel.send("CONTENU DES COURS :")
         # for le in lessons:

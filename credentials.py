@@ -1,7 +1,0 @@
-username = PRONOTE_OR_CAS_USERNAME
-password = PRONOTE_OR_CAS_PASSWORD
-url = PRONOTE_URL
-cas = CAS_URL
-token = BOT_TOKEN
-admin = ADMIN_PROBOTE_USER_ID
-probote_channel = PUBLIC_PROBOTE_CHANNEL_ID

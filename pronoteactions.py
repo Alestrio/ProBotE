@@ -34,17 +34,18 @@ class PronoteActions():
         return formattedHomeworks
 
     def getLessons(self):
-        # formattedLessons = []
-        # if self.client.logged_in:
-        #     lessons = self.client.lessons(datetime.date.today())
-        #     print(lessons)
-        #     if lessons != None:
-        #         for le in lessons:
-        #             if le != None or le.content != None:
-        #                 print(le.start, le.content.file())
-        #                 formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
-        #             else:
-        #                 print(le.start, le.content.title, le.content.description)
+        formattedLessons = []
+        if self.client.logged_in:
+            lessons = self.client.lessons(datetime.date.today())
+            print(lessons)
+            if lessons != None:
+                for le in lessons:
+                    print(le.id)
+                    if not le.content == None:
+                        print(le.start, le.content().description)
+                    #     formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
+                    # else:
+                    #     print(le.start, le.content.title, le.content.descriptif)
         # else:
         #     self.client = pronotepy.Client(credentials.url, cookies=ac_reims(credentials.username, credentials.password))
         #     lessons = self.client.lessons(datetime.date.today())
@@ -53,8 +54,8 @@ class PronoteActions():
         #         for le in lessons:
         #             if le != None and le.content != None:
         #                 formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
-        return None
-        
+            return None
+
     def reSync(self):
 
         return None
