@@ -5,6 +5,7 @@
 import pydrive
 import credential
 import json
+import os
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
@@ -19,10 +20,11 @@ class GDrive():
         self.drive = GoogleDrive(gauth)
         return None
 
-    def uploadFile(self, file, folderid):
-        gFile = self.drive.CreateFile({'parents': [{'id': folderid}]})
-        gFile.setContentFile(file)
-        gFile.upload()
+    def uploadFile(self, folderid, title):
+        gFile = self.drive.CreateFile({'parents': [{'id': folderid}], 'title': title})
+        gFile.SetContentFile('tempfile')
+        gFile.Upload()
+        os.remove('tempfile')
         return None
 
     def getSubfolders(self, folderId):
@@ -38,24 +40,25 @@ class GDrive():
     #     return None
 
     def parseFolderArgument(self, primaryFolder:int, secondaryFolder:int):
-        self.updateFolderHierarchy
+        self.updateFolderHierarchy()
         try:
-            primaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]
+            primaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['id']
         except:
             print('Index out of range')
             primaryFolderId = -1
         if secondaryFolder != None:
             try:
-                secondaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['subfolders'][secondaryFolder]
+                folderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['subfolders'][secondaryFolder]['id']
             except:
                 print("Index out of range")
                 secondaryFolderId = -1
         else:
             secondaryFolderId = -1
-        return (primaryFolderId, secondaryFolderId)
+            folderId = primaryFolderId
+        return folderId
 
     def updateFolderHierarchy(self):
-        self.folderHierarchy = credential.folderHierarchy
+        self.folderHierarchy = json.loads(credential.folderHierarchy)
         for folder in self.folderHierarchy['general_folder']['subfolders']:
             folderId = folder['id']
             subfolders = self.getSubfolders(folderId)

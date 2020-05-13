@@ -20,7 +20,7 @@ You can contribute by submitting pull requests
 # Functions we want to add
 - Google drive sync :
   - [ ] Upload files from Pronote (in adapted folder)
-  - [ ] Upload files from Discord (in adapted folder)
+  - [x] Upload files from Discord (in adapted folder)
   - [ ] Create evaluations that can be uploaded and then gathered by teacher
   - [ ] Files list
   - [x] Folders list

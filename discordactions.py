@@ -38,26 +38,32 @@ class DiscordBot(commands.Bot):
             await self.introduceBot()
         if message.content.startswith('pro dossiers'):
             await self.sendFolderHierarchy()
-        # if message.content.startswith('pro upload'):
-        #     splittedMsg = message.content.split(' ')
-        #     if len(splittedMsg) > 4:
-        #         self.sendUploadCommandErrorMsg()
-        #     else:
-        #         await file = message.attachment.to_file()
-        #         if len(splittedMsg) == 3:
-        #             folderId = drive.parseFolderArgument(splittedMsg[2], 0)
-        #             if folderId != None:
-        #                 drive.uploadFile(file, folderID)
-        #             else:
-        #                 self.sendUploadCommandErrorMsg()
-        #         elif len(splittedMsg) == 2:
-        #             drive.uploadFile(file, credential.general_folder)
-        #         else:
-        #             folderId = drive.parseFolderArgument(splittedMsg[2], splittedMsg[3])
-        #             if folderId != None:
-        #                 drive.uploadFile(file, folderId)
-        #             else:
-        #                 self.sendUploadCommandErrorMsg()
+        if message.content.startswith('pro upload'):
+            splittedMsg = message.content.split(' ')
+            if len(splittedMsg) > 4:
+                self.sendUploadCommandErrorMsg()
+            else:
+                att = message.attachments[0]
+                await att.save('tempfile')
+                title = att.filename
+                if len(splittedMsg) == 3:
+                    folderId = self.drive.parseFolderArgument(splittedMsg[2], -1)
+                    if folderId != None:
+                        self.drive.uploadFile(folderID, title)
+                        await self.sendUploadOkMsg()
+                    else:
+                        self.sendUploadCommandErrorMsg()
+                elif len(splittedMsg) == 2:
+                    self.drive.uploadFile(file, credential.general_folder)
+                    await self.sendUploadOkMsg()
+                else:
+                    folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
+                    print(folderId)
+                    if folderId != None:
+                        self.drive.uploadFile(folderId, title)
+                        await self.sendUploadOkMsg()
+                    else:
+                        self.sendUploadCommandErrorMsg()
 
         return None
 
@@ -83,7 +89,7 @@ class DiscordBot(commands.Bot):
         '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
         '-pro introduce : permet d\'afficher ce message \n' +
         '-pro dossiers : permet d\'afficher la liste des dossiers sous forme d\'arbre'+
-        #'-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
+        '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n ' +
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
@@ -93,6 +99,11 @@ class DiscordBot(commands.Bot):
         await homework_channel.send('Oups, il semblerait qu\'il y ait un problème avec votre commande ! :/ \n'+
                                     'Voici la structure des dossiers, peut être que vous pourrez corriger votre commande grâce à elle !')
         await self.sendFolderHierarchy()
+        return None
+
+    async def sendUploadOkMsg(self):
+        homework_channel = self.get_channel(credential.homework_channel)
+        await homework_channel.send('Fichier envoyé !')
         return None
 
     async def sendFolderHierarchy(self):
