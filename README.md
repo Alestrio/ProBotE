@@ -10,8 +10,8 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 # How to use ?
 - Install python3 and pip3
 - Clone that repo
-- Install dependencies (pip3 install discord pronotepy)
-- Edit credentials.py with your own values
+- Install dependencies (pip3 install discord pronotepy pydrive)
+- Edit credentials.py.sample with your own values and rename it credential.py
 - Start that bot with python3 probote.py
 
 # How to contribute ?
