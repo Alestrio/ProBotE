@@ -1,3 +1,7 @@
+#
+# Copyright (c) 2020 by Alexis LEBEL. Released under MIT License
+#
+
 import pydrive
 import credential
 import json

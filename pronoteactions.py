@@ -54,6 +54,6 @@ class PronoteActions():
     #                      formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
     #         return None
 
-    def reSync(self):
-
-        return None
+    # def reSync(self):
+    #
+    #     return None

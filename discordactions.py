@@ -89,7 +89,10 @@ class DiscordBot(commands.Bot):
         return None
 
     async def sendUploadCommandErrorMsg(self):
-
+        homework_channel = self.get_channel(credential.homework_channel)
+        await homework_channel.send('Oups, il semblerait qu\'il y ait un problème avec votre commande ! :/ \n'+
+                                    'Voici la structure des dossiers, peut être que vous pourrez corriger votre commande grâce à elle !')
+        await self.sendFolderHierarchy()
         return None
 
     async def sendFolderHierarchy(self):
