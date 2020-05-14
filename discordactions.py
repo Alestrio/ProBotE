@@ -88,7 +88,7 @@ class DiscordBot(commands.Bot):
         'Voici mes commandes : \n' +
         '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
         '-pro introduce : permet d\'afficher ce message \n' +
-        '-pro dossiers : permet d\'afficher la liste des dossiers sous forme d\'arbre'+
+        '-pro dossiers : permet d\'afficher la liste des dossiers sous forme d\'arbre \n' +
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n ' +
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
