@@ -53,7 +53,7 @@ class DiscordBot(commands.Bot):
                     else:
                         self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
-                    self.drive.uploadFile(file, self.drive.folderHierarchy['general_folder']['id']) 
+                    self.drive.uploadFile(file, self.drive.folderHierarchy['general_folder']['id'])
                     await self.sendUploadOkMsg()
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
@@ -112,9 +112,9 @@ class DiscordBot(commands.Bot):
         'Voici mes commandes : \n' +
         '-pro devoirs : permet de récolter les devoirs sur une période de 15 jours et le contenu des cours du jour, avec les liens des fichiers \n' +
         '-pro help : permet d\'afficher ce message \n' +
-        '-pro dossiers : permet d\'afficher la liste des dossiers sous forme d\'arbre \n' +
+        '-pro dossiers : permet d\'afficher la liste des dossiers du drive sous forme d\'arbre \n' +
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
-        'Bon courage ! \n ' +
+        'Bon courage ! \n' +
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
