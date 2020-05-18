@@ -82,7 +82,7 @@ class DiscordBot(commands.Bot):
              if le[1] != None:
                  for file in le[1]:
                      formattedMessage +=  file.url + '\n'
-             print(formattedMessage)
+             #print(formattedMessage)
              await self.homework_channel.send(formattedMessage)
         return None
 
