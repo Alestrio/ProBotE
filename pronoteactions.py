@@ -22,28 +22,22 @@ class PronoteActions():
             formattedHomeworks.append([hw.subject.name + " " + hw.date.strftime('%d - %m - %Y') + " ``` \n" + hw.description + "\n ```", hw.files])
         return formattedHomeworks
 
-    # def getLessons(self):
-    #     formattedLessons = []
-    #     if self.client.logged_in:
-    #         lessons = self.client.lessons(datetime.date.today())
-    #         print(lessons)
-    #         if lessons != None:
-    #             for le in lessons:
-    #                 print(le.id)
-    #                 if not le.content == None:
-    #                     print(le.start, le.content().description)
-    #                      formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
-    #                  else:
-    #                      print(le.start, le.content.title, le.content.descriptif)
-    #      else:
-    #          self.client = pronotepy.Client(credentials.url, cookies=ac_reims(credentials.username, credentials.password))
-    #          lessons = self.client.lessons(datetime.date.today())
-    #          print(lessons)
-    #          if lessons != None:
-    #              for le in lessons:
-    #                  if le != None and le.content != None:
-    #                      formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
-    #         return None
+    def getLessons(self):
+         formattedLessons = []
+         #self.client = pronotepy.Client(credential.url, cookies=ac_reims(credential.username, credential.password)) # Switch to getLessonsAndReconnect if a day I need that.
+         lessons = self.client.lessons(datetime.date.today())
+         print(lessons)
+         for le in lessons:
+             try:
+                 try:
+                     formattedLessons.append([le.start.strftime('%d - %m - %Y') + ' - ' + le.subject.name + '```' + le.content.description + '\n ```', le.content.files])
+                 except:
+                     print('no files')
+                     formattedLessons.append([le.start.strftime('%d - %m - %Y') + ' - ' + le.subject.name + '```' + le.content.description + '\n ```', None])
+             except:
+                print('no desc') # Do not forget to except as lessons can be blank (why ?.... IdK....)
+
+         return formattedLessons
 
     # def reSync(self):
     #
