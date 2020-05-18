@@ -31,9 +31,11 @@ class GDrive():
         subfolders = self.drive.ListFile({'q': f"'{folderId}' in parents and trashed=false and mimeType=\'application/vnd.google-apps.folder\'"}).GetList()
         return subfolders
 
-    # def createSubfolder(self, name:str):
-    #
-    #     return None
+    def createSubfolder(self, name:str):
+        folder_metadata = {'title' : name, 'mimeType' : 'application/vnd.google-apps.folder'}
+        folder = self.drive.CreateFile(folder_metadata)
+        folder.Upload()
+        return None
 
     def getFileTitles(self, folderId):
         file_list = self.drive.ListFile({'q': f"'{folderId}' in parents"}).GetList()
