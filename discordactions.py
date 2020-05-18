@@ -54,7 +54,7 @@ class DiscordBot(commands.Bot):
                     else:
                         self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
                 elif len(splittedMsg) == 2:
-                    self.drive.uploadFile(file, credential.general_folder)
+                    self.drive.uploadFile(file, credential.folderHierarchy) #FIXME : Get info in JSON
                     await self.sendUploadOkMsg()
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
@@ -72,16 +72,16 @@ class DiscordBot(commands.Bot):
                 if len(splittedMsg) == 3:
                     folderId = self.drive.parseFolderArgument(splittedMsg[2], -1)
                     if folderId != None:
-                        await
+                        await homework_channel.send(self.drive.getFileTitles(folderId))
                     else:
                         self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
                 elif len(splittedMsg) == 2:
-                    #Send files (general folder)
+                    await homework_channel.send(self.drive.getFileTitles(credential.general_folder['id'])) #FIXME : get info in JSON
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
                     print(folderId)
                     if folderId != None:
-                        #Send files
+                        await homework_channel.send(self.drive.getFileTitles(folderId))
                     else:
                         self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
 
