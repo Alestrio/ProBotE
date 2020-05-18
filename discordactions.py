@@ -33,7 +33,7 @@ class DiscordBot(commands.Bot):
 
     async def on_message(self, message):
         if message.content.startswith('pro sync'):
-            await self.updateChannel(self.pronote.getHomeworks())
+            await self.updateChannel(self.pronote.getHomeworks(), self.pronote.getLessons())
         if message.content.startswith('pro introduce'):
             await self.introduceBot()
         if message.content.startswith('pro dossiers'):
@@ -68,7 +68,7 @@ class DiscordBot(commands.Bot):
         return None
 
 
-    async def updateChannel(self, homeworks):
+    async def updateChannel(self, homeworks, lessons):
         self.homework_channel = self.get_channel(credential.homework_channel)
         await self.homework_channel.send("DEVOIRS :")
         for hw in homeworks:
@@ -76,9 +76,14 @@ class DiscordBot(commands.Bot):
             for file in hw[1]:
                 formattedMessage +=  file.url + '\n'
             await self.homework_channel.send(formattedMessage)
-        # await self.homework_channel.send("CONTENU DES COURS :")
-        # for le in lessons:
-        #     await self.homework_channel.send(le)
+        await self.homework_channel.send("CONTENU DES COURS :")
+        for le in lessons:
+             formattedMessage = le[0]
+             if le[1] != None:
+                 for file in le[1]:
+                     formattedMessage +=  file.url + '\n'
+             print(formattedMessage)
+             await self.homework_channel.send(formattedMessage)
         return None
 
     async def introduceBot(self):

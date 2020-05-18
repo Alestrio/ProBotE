@@ -28,7 +28,7 @@ You can contribute by submitting pull requests
   - [x] Folders list
 
 - Pronote :
-  - [ ] Lessons content
+  - [x] Lessons content
   - [ ] Messages (only broadcast messages)
   - [ ] Auto sync (every x minutes or when a new homework is published)
 

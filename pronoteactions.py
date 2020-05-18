@@ -24,14 +24,19 @@ class PronoteActions():
 
     def getLessons(self):
          formattedLessons = []
-         self.client = pronotepy.Client(credential.url, cookies=ac_reims(credential.username, credential.password))
+         #self.client = pronotepy.Client(credential.url, cookies=ac_reims(credential.username, credential.password)) # Switch to getLessonsAndReconnect if a day I need that.
          lessons = self.client.lessons(datetime.date.today())
          print(lessons)
          for le in lessons:
              try:
-                 formattedLessons.append(le.start.strftime('%d - %m - %Y') + '```\n' + le.content.description + '\n ```')
+                 try:
+                     formattedLessons.append([le.start.strftime('%d - %m - %Y') + ' - ' + le.subject.name + '```' + le.content.description + '\n ```', le.content.files])
+                 except:
+                     print('no files')
+                     formattedLessons.append([le.start.strftime('%d - %m - %Y') + ' - ' + le.subject.name + '```' + le.content.description + '\n ```', None])
              except:
-                print('no desc')
+                print('no desc') # Do not forget to except as lessons can be blank (why ?.... IdK....)
+
          return formattedLessons
 
     # def reSync(self):
