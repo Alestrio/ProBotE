@@ -35,9 +35,14 @@ class GDrive():
     #
     #     return None
 
-    # def getFileTitles(self):
-    #
-    #     return None
+     def getFileTitles(self, folderId):
+         file_list = drive.ListFile({'parents': [{'id': folderid}]})
+         titlesList = ''
+         i=0
+         for file in file_list:
+             titlesList += i + ' - ' + file[title] + '\n'
+             i+=1
+         return titlesList
 
     def parseFolderArgument(self, primaryFolder:int, secondaryFolder:int):
         self.updateFolderHierarchy()

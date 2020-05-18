@@ -114,6 +114,7 @@ class DiscordBot(commands.Bot):
         '-pro help : permet d\'afficher ce message \n' +
         '-pro dossiers : permet d\'afficher la liste des dossiers du drive sous forme d\'arbre \n' +
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
+        '-pro fichiers : permet de connaître la liste des fichiers d\'un dossier (usage : pro fichiers [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n' +
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
