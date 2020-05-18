@@ -25,13 +25,17 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [x] Upload files from Discord (in adapted folder)
   - [ ] Create evaluations that can be uploaded and then gathered by teacher
   - [x] Files list
-  - [ ] File delete
+  - [ ] File deletion
   - [x] Folders list
+  - [ ] Directories creation
 
 - Pronote :
   - [x] Lessons content
   - [ ] Messages (only broadcast messages)
   - [ ] Auto sync (every x minutes or when a new homework is published)
+
+- Misc :
+  - [ ] Version number in help command
 
 
 # Author
