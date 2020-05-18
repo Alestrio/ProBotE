@@ -21,7 +21,6 @@ class DiscordBot(commands.Bot):
         handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
         logger.addHandler(handler)
 
-        self.homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring
         self.pronote = pa.PronoteActions()
         self.drive = gdrive.GDrive()
 
@@ -31,7 +30,7 @@ class DiscordBot(commands.Bot):
         print('Succesfully logged in for Discord as {0.user}'.format(bot))
 
     async def on_message(self, message):
-        homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring
+        probote_channel = self.get_channel(credential.probote_channel)
         if message.content.startswith('pro devoirs'):
             await self.updateChannel(self.pronote.getHomeworks(), self.pronote.getLessons())
         if message.content.startswith('pro help'):
@@ -41,7 +40,7 @@ class DiscordBot(commands.Bot):
         if message.content.startswith('pro upload'):
             splittedMsg = message.content.split(' ')
             if len(splittedMsg) > 4:
-                self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                self.sendCommandErrorMsg()
             else:
                 att = message.attachments[0]
                 await att.save('tempfile')
@@ -52,7 +51,7 @@ class DiscordBot(commands.Bot):
                         self.drive.uploadFile(folderID, title)
                         await self.sendUploadOkMsg()
                     else:
-                        self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                        self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
                     self.drive.uploadFile(file, credential.folderHierarchy) #FIXME : Get info in JSON
                     await self.sendUploadOkMsg()
@@ -63,52 +62,52 @@ class DiscordBot(commands.Bot):
                         self.drive.uploadFile(folderId, title)
                         await self.sendUploadOkMsg()
                     else:
-                        self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                        self.sendCommandErrorMsg()
         if message.content.startswith('pro fichiers'):
             splittedMsg = message.content.split(' ')
             if len(splittedMsg) > 4:
-                self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                self.sendCommandErrorMsg()
             else:
                 if len(splittedMsg) == 3:
                     folderId = self.drive.parseFolderArgument(splittedMsg[2], -1)
                     if folderId != None:
-                        await homework_channel.send(self.drive.getFileTitles(folderId))
+                        await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
-                        self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                        self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
-                    await homework_channel.send(self.drive.getFileTitles(credential.general_folder['id'])) #FIXME : get info in JSON
+                    await probote_channel.send(self.drive.getFileTitles(credential.general_folder['id'])) #FIXME : get info in JSON
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
                     print(folderId)
                     if folderId != None:
-                        await homework_channel.send(self.drive.getFileTitles(folderId))
+                        await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
-                        self.sendUploadCommandErrorMsg() #FIXME : That name will need a refactoring
+                        self.sendCommandErrorMsg()
 
         return None
 
 
     async def updateChannel(self, homeworks, lessons):
-        self.homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring / switch to a local var
-        await self.homework_channel.send("DEVOIRS :") #FIXME : That name will need a refactoring / switch to a local var
+        probote_channel = self.get_channel(credential.probote_channel)
+        await probote_channel.send("DEVOIRS :")
         for hw in homeworks:
             formattedMessage = hw[0]
             for file in hw[1]:
                 formattedMessage +=  file.url + '\n'
-            await self.homework_channel.send(formattedMessage) #FIXME : That name will need a refactoring / switch to a local var
-        await self.homework_channel.send("CONTENU DES COURS :") #FIXME : That name will need a refactoring / switch to a local var
+            await probote_channel.send(formattedMessage)
+        await probote_channel.send("CONTENU DES COURS :")
         for le in lessons:
              formattedMessage = le[0]
              if le[1] != None:
                  for file in le[1]:
                      formattedMessage +=  file.url + '\n'
              print(formattedMessage)
-             await self.homework_channel.send(formattedMessage) #FIXME : That name will need a refactoring / switch to a local var
+             await probote_channel.send(formattedMessage)
         return None
 
     async def introduceBot(self):
-        self.homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring / switch to a local var
-        await self.homework_channel.send('Bonjour ! \n ' +
+        probote_channel = self.get_channel(credential.probote_channel)
+        await probote_channel.send('Bonjour ! \n ' +
         'Je suis un automate qui fait la liaison entre Discord, Pronote, et Google Drive ! \n' +
         'Voici mes commandes : \n' +
         '-pro devoirs : permet de récolter les devoirs sur une période de 15 jours et le contenu des cours du jour, avec les liens des fichiers \n' +
@@ -119,20 +118,20 @@ class DiscordBot(commands.Bot):
         'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
         return None
 
-    async def sendUploadCommandErrorMsg(self): #FIXME : That name will need a refactoring
-        homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring
-        await homework_channel.send('Oups, il semblerait qu\'il y ait un problème avec votre commande ! :/ \n'+
+    async def sendCommandErrorMsg(self):
+        probote_channel = self.get_channel(credential.probote_channel)
+        await probote_channel.send('Oups, il semblerait qu\'il y ait un problème avec votre commande ! :/ \n'+
                                     'Voici la structure des dossiers, peut être que vous pourrez corriger votre commande grâce à elle !')
         await self.sendFolderHierarchy()
         return None
 
     async def sendUploadOkMsg(self):
-        homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring
-        await homework_channel.send('Fichier envoyé !')
+        probote_channel = self.get_channel(credential.probote_channel)
+        await probote_channel.send('Fichier envoyé !')
         return None
 
     async def sendFolderHierarchy(self):
-        self.homework_channel = self.get_channel(credential.homework_channel) #FIXME : That name will need a refactoring / switch to a local var
+        probote_channel = self.get_channel(credential.probote_channel)
         self.drive.updateFolderHierarchy()
         fh = self.drive.folderHierarchy
         message = 'Voici l\'arbre des dossiers du Drive : \n'
@@ -144,7 +143,7 @@ class DiscordBot(commands.Bot):
             for subf in folder['subfolders']:
                 message += '    ' + str(j) + ' - ' + "".join(subf["displayName"]) + '\n'
                 j += 1
-        await self.homework_channel.send(message) #FIXME : That name will need a refactoring / switch to a local var
+        await probote_channel.send(message)
         return None
 
 bot = DiscordBot()
