@@ -27,6 +27,7 @@ You can contribute by submitting pull requests
   - [x] Files list
   - [ ] File delete
   - [x] Folders list
+  - [x] Subfolder creation
 
 - Pronote :
   - [x] Lessons content
