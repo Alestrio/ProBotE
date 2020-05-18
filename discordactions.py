@@ -84,6 +84,13 @@ class DiscordBot(commands.Bot):
                         await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
                         await self.sendCommandErrorMsg()
+        if message.content.startswith('pro mkdir'):
+            splittedMsg = message.content.split(' ')
+            if len(splittedMsg) == 3:
+                self.drive.createSubfolder(splittedMsg[2])
+                await probote_channel.send('Dossier créé !')
+            else:
+                await self.sendMkdirErrorMsg()
         return None
 
 
