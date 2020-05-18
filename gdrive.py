@@ -35,9 +35,14 @@ class GDrive():
     #
     #     return None
 
-    # def getFileTitles(self):
-    #
-    #     return None
+    def getFileTitles(self, folderId):
+        file_list = self.drive.ListFile({'q': f"'{folderId}' in parents"}).GetList()
+        titlesList = ''
+        i=0
+        for file in file_list:
+            titlesList += str(i) + ' - ' + file['title'] + '\n'
+            i+=1
+        return titlesList
 
     def parseFolderArgument(self, primaryFolder:int, secondaryFolder:int):
         self.updateFolderHierarchy()
@@ -46,7 +51,8 @@ class GDrive():
         except:
             print('Index out of range')
             primaryFolderId = -1
-        if secondaryFolder != None:
+            folderId = -1
+        if secondaryFolder != -1:
             try:
                 folderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['subfolders'][secondaryFolder]['id']
             except:
