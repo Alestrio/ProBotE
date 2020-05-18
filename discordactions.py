@@ -103,6 +103,7 @@ class DiscordBot(commands.Bot):
                      formattedMessage +=  file.url + '\n'
              print(formattedMessage)
              await probote_channel.send(formattedMessage)
+
         return None
 
     async def introduceBot(self):
