@@ -12,7 +12,7 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 - Clone that repo
 - Install dependencies (pip3 install discord pronotepy pydrive)
 - Edit credentials.py.sample with your own values and rename it credential.py
-- Download your API key in .json, and copy it there under the neme "client_secrets.json"
+- Download your API key in .json, and copy it there under the name "client_secrets.json"
 - Start that bot with python3 probote.py
 
 # How to contribute ?
@@ -24,7 +24,8 @@ You can contribute by submitting pull requests
   - [ ] Upload files from ENT (in adapted folder)
   - [x] Upload files from Discord (in adapted folder)
   - [ ] Create evaluations that can be uploaded and then gathered by teacher
-  - [ ] Files list
+  - [x] Files list
+  - [ ] File delete
   - [x] Folders list
 
 - Pronote :
