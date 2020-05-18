@@ -53,7 +53,7 @@ class DiscordBot(commands.Bot):
                     else:
                         self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
-                    self.drive.uploadFile(file, credential.folderHierarchy) #FIXME : Get info in JSON
+                    self.drive.uploadFile(file, self.drive.folderHierarchy['general_folder']['id']) 
                     await self.sendUploadOkMsg()
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
@@ -75,7 +75,7 @@ class DiscordBot(commands.Bot):
                     else:
                         self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
-                    await probote_channel.send(self.drive.getFileTitles(credential.general_folder['id'])) #FIXME : get info in JSON
+                    await probote_channel.send(self.drive.getFileTitles(self.drive.folderHierarchy['general_folder']['id'])
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
                     print(folderId)
