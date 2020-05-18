@@ -40,50 +40,50 @@ class DiscordBot(commands.Bot):
         if message.content.startswith('pro upload'):
             splittedMsg = message.content.split(' ')
             if len(splittedMsg) > 4:
-                self.sendCommandErrorMsg()
+                await self.sendCommandErrorMsg()
             else:
                 att = message.attachments[0]
                 await att.save('tempfile')
                 title = att.filename
                 if len(splittedMsg) == 3:
                     folderId = self.drive.parseFolderArgument(splittedMsg[2], -1)
-                    if folderId != None:
+                    if folderId != -1:
                         self.drive.uploadFile(folderID, title)
                         await self.sendUploadOkMsg()
                     else:
-                        self.sendCommandErrorMsg()
+                        await self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
                     self.drive.uploadFile(file, self.drive.folderHierarchy['general_folder']['id'])
                     await self.sendUploadOkMsg()
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
                     print(folderId)
-                    if folderId != None:
+                    if folderId != -1:
                         self.drive.uploadFile(folderId, title)
                         await self.sendUploadOkMsg()
                     else:
-                        self.sendCommandErrorMsg()
+                        await self.sendCommandErrorMsg()
         if message.content.startswith('pro fichiers'):
             splittedMsg = message.content.split(' ')
             if len(splittedMsg) > 4:
-                self.sendCommandErrorMsg()
+                await self.sendCommandErrorMsg()
             else:
                 if len(splittedMsg) == 3:
-                    folderId = self.drive.parseFolderArgument(splittedMsg[2], -1)
-                    if folderId != None:
+                    folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), -1)
+                    if folderId != -1:
                         await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
-                        self.sendCommandErrorMsg()
+                        await self.sendCommandErrorMsg()
                 elif len(splittedMsg) == 2:
-                    await probote_channel.send(self.drive.getFileTitles(self.drive.folderHierarchy['general_folder']['id'])
+                    await probote_channel.send(self.drive.getFileTitles(self.drive.folderHierarchy['general_folder']['id']))
+
                 else:
                     folderId = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
                     print(folderId)
-                    if folderId != None:
+                    if folderId != -1:
                         await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
-                        self.sendCommandErrorMsg()
-
+                        await self.sendCommandErrorMsg()
         return None
 
 
