@@ -16,9 +16,9 @@ transfering files from Pronote to Google Drive and gathering homeworks.
 - Start that bot with python3 probote.py
 
 # How to contribute ?
-You can contribute by submitting pull requests
+You can contribute by submitting pull requests, or opening an issue to describe the feature you want to add.
 
-# Functions we want to add
+# Features we want to add
 - Google drive sync :
   - [ ] Upload files from Pronote (in adapted folder)
   - [ ] Upload files from ENT (in adapted folder)
