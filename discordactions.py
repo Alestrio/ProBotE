@@ -32,9 +32,9 @@ class DiscordBot(commands.Bot):
         print('Succesfully logged in for Discord as {0.user}'.format(bot))
 
     async def on_message(self, message):
-        if message.content.startswith('pro sync'):
+        if message.content.startswith('pro devoirs'):
             await self.updateChannel(self.pronote.getHomeworks(), self.pronote.getLessons())
-        if message.content.startswith('pro introduce'):
+        if message.content.startswith('pro help'):
             await self.introduceBot()
         if message.content.startswith('pro dossiers'):
             await self.sendFolderHierarchy()
@@ -91,8 +91,8 @@ class DiscordBot(commands.Bot):
         await self.homework_channel.send('Bonjour ! \n ' +
         'Je suis un automate qui fait la liaison entre Discord, Pronote, et Google Drive ! \n' +
         'Voici mes commandes : \n' +
-        '-pro sync : permet de récolter les devoirs sur une période de 15 jours, avec les liens des fichiers \n' +
-        '-pro introduce : permet d\'afficher ce message \n' +
+        '-pro devoirs : permet de récolter les devoirs sur une période de 15 jours et le contenu des cours du jour, avec les liens des fichiers \n' +
+        '-pro help : permet d\'afficher ce message \n' +
         '-pro dossiers : permet d\'afficher la liste des dossiers sous forme d\'arbre \n' +
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n ' +
