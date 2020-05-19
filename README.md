@@ -34,6 +34,9 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [ ] Messages (only broadcast messages)
   - [ ] Auto sync (every x minutes or when a new homework is published)
 
+- Misc :
+  - [x] Version number in help command
+
 
 # Author
 Alexis LEBEL (@Alestrio0)

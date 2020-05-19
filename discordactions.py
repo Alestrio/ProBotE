@@ -115,7 +115,7 @@ class DiscordBot(commands.Bot):
 
     async def introduceBot(self):
         probote_channel = self.get_channel(credential.probote_channel)
-        await probote_channel.send('Bonjour ! \n ' +
+        await probote_channel.send('Bonjour ! \n' +
         'Je suis un automate qui fait la liaison entre Discord, Pronote, et Google Drive ! \n' +
         'Voici mes commandes : \n' +
         '-pro devoirs : permet de récolter les devoirs sur une période de 15 jours et le contenu des cours du jour, avec les liens des fichiers \n' +
@@ -124,7 +124,8 @@ class DiscordBot(commands.Bot):
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         '-pro fichiers : permet de connaître la liste des fichiers d\'un dossier (usage : pro fichiers [dossier matière] [sous dossier]) \n' +
         'Bon courage ! \n' +
-        'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
+        'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE \n' +
+        'Version actuelle : ' + credential.version_number)
         return None
 
     async def sendCommandErrorMsg(self):
