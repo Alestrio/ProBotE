@@ -47,29 +47,22 @@ class GDrive():
         return titlesList
 
     def parseFolderArgument(self, primaryFolder:int, secondaryFolder:int):
+        primaryFolderId, secondaryFolderId, folderId = -1
         self.updateFolderHierarchy()
         try:
             primaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['id']
             folderId = primaryFolderId
         except IndexError:
             print('Index out of range')
-            primaryFolderId = -1
-            folderId = -1
         except:
             print('Autre erreur')
-            primaryFolderId = -1
-            folderId = -1
         if secondaryFolder != -1:
             try:
                 folderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['subfolders'][secondaryFolder]['id']
             except IndexError:
                 print("Index out of range")
-                secondaryFolderId = -1
             except:
                 print("Autre erreur")
-                secondaryFolderId = -1
-        else:
-            secondaryFolderId = -1
         return folderId
 
     def updateFolderHierarchy(self):
