@@ -1,6 +1,5 @@
 # ProBotE
-ProBotE is a Discord bot to automate actions linked to Pronote and Google Drive used on my classrooms' Discord server to automate manual tasks such as
-transfering files from Pronote to Google Drive and gathering homeworks.
+ProBotE is a Discord bot to automate actions linked to Pronote and Google Drive used on my classrooms' Discord server to automate manual tasks such as transfering files from Pronote to Google Drive and gathering homeworks.
 
 # Dependencies
 - pronotepy by @bain3 and @Xiloe

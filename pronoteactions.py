@@ -25,7 +25,7 @@ class PronoteActions():
     def getLessons(self):
          formattedLessons = []
          #self.client = pronotepy.Client(credential.url, cookies=ac_reims(credential.username, credential.password)) # Switch to getLessonsAndReconnect if a day I need that.
-         lessons = self.client.lessons(datetime.date.today())
+         lessons = self.client.lessons(datetime.date.today(), (datetime.date.today() + datetime.timedelta(days=14)))
          #print(lessons)
          for le in lessons:
              try:
