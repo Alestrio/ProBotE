@@ -28,6 +28,7 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [ ] File delete
   - [x] Folders list
   - [x] Subfolder creation
+  - [ ] File uploading in subfolders deeper in the tree (actual : 2 levels)
 
 - Pronote :
   - [x] Lessons content

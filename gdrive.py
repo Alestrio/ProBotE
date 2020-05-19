@@ -31,8 +31,8 @@ class GDrive():
         subfolders = self.drive.ListFile({'q': f"'{folderId}' in parents and trashed=false and mimeType=\'application/vnd.google-apps.folder\'"}).GetList()
         return subfolders
 
-    def createSubfolder(self, name:str):
-        folder_metadata = {'title' : name, 'mimeType' : 'application/vnd.google-apps.folder'}
+    def createSubfolder(self, name:str, parent):
+        folder_metadata = {'title' : name, 'mimeType' : 'application/vnd.google-apps.folder', 'parents': [{'id': parent}]}
         folder = self.drive.CreateFile(folder_metadata)
         folder.Upload()
         return None
@@ -50,19 +50,26 @@ class GDrive():
         self.updateFolderHierarchy()
         try:
             primaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['id']
-        except:
+            folderId = primaryFolderId
+        except IndexError:
             print('Index out of range')
+            primaryFolderId = -1
+            folderId = -1
+        except:
+            print('Autre erreur')
             primaryFolderId = -1
             folderId = -1
         if secondaryFolder != -1:
             try:
                 folderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['subfolders'][secondaryFolder]['id']
-            except:
+            except IndexError:
                 print("Index out of range")
+                secondaryFolderId = -1
+            except:
+                print("Autre erreur")
                 secondaryFolderId = -1
         else:
             secondaryFolderId = -1
-            folderId = primaryFolderId
         return folderId
 
     def updateFolderHierarchy(self):
