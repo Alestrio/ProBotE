@@ -84,6 +84,31 @@ class DiscordBot(commands.Bot):
                         await probote_channel.send(self.drive.getFileTitles(folderId))
                     else:
                         await self.sendCommandErrorMsg()
+        if message.content.startswith('pro mkdir'):
+            splittedMsg = message.content.split(' ')
+            if len(splittedMsg) == 5:
+                parent = self.drive.parseFolderArgument(int(splittedMsg[2]), int(splittedMsg[3]))
+                if parent != -1:
+                    self.drive.createSubfolder(splittedMsg[4], parent)
+                    await probote_channel.send('Dossier créé !')
+                else:
+                    await self.sendMkdirErrorMsg()
+            elif len(splittedMsg) == 4:
+                parent = self.drive.parseFolderArgument(int(splittedMsg[2]), -1)
+                if parent != -1:
+                    self.drive.createSubfolder(splittedMsg[3], parent)
+                    await probote_channel.send('Dossier créé !')
+                else:
+                    await self.sendMkdirErrorMsg()
+            elif len(splittedMsg) == 3:
+                parent = self.drive.folderHierarchy['general_folder']['id']
+                if parent != -1:
+                    self.drive.createSubfolder(splittedMsg[2], parent)
+                    await probote_channel.send('Dossier créé !')
+                else:
+                    await self.sendMkdirErrorMsg()
+            else:
+                await self.sendMkdirErrorMsg()
         return None
 
 
@@ -108,7 +133,7 @@ class DiscordBot(commands.Bot):
 
     async def introduceBot(self):
         probote_channel = self.get_channel(credential.probote_channel)
-        await probote_channel.send('Bonjour ! \n ' +
+        await probote_channel.send('Bonjour ! \n' +
         'Je suis un automate qui fait la liaison entre Discord, Pronote, et Google Drive ! \n' +
         'Voici mes commandes : \n' +
         '-pro devoirs : permet de récolter les devoirs sur une période de 15 jours et le contenu des cours du jour, avec les liens des fichiers \n' +
@@ -116,8 +141,10 @@ class DiscordBot(commands.Bot):
         '-pro dossiers : permet d\'afficher la liste des dossiers du drive sous forme d\'arbre \n' +
         '-pro upload : permet de téléverser un fichier vers google drive (usage : pro upload [dossier matière] [sous dossier]) \n' +
         '-pro fichiers : permet de connaître la liste des fichiers d\'un dossier (usage : pro fichiers [dossier matière] [sous dossier]) \n' +
+        '-pro mkdir : permet de créer un sous dossier (usage : pro mkdir [dossier matière] [sous-dossier] [nom du dossier à créer]) \n' +
         'Bon courage ! \n' +
-        'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE')
+        'PS : Mon code source est disponible ici : https://github.com/Alestrio/ProBotE \n' +
+        'Version actuelle : ' + credential.version_number)
         return None
 
     async def sendCommandErrorMsg(self):
@@ -145,6 +172,12 @@ class DiscordBot(commands.Bot):
             for subf in folder['subfolders']:
                 message += '    ' + str(j) + ' - ' + "".join(subf["displayName"]) + '\n'
                 j += 1
+        await probote_channel.send(message)
+        return None
+
+    async def sendMkdirErrorMsg(self):
+        probote_channel = self.get_channel(credential.probote_channel)
+        message = 'Attention, il y a une erreur dans votre commande (usage : pro mkdir [dossier matière] [sous-dossier] [nom du dossier à créer])'
         await probote_channel.send(message)
         return None
 

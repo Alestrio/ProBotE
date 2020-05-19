@@ -27,7 +27,9 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [x] Files list
   - [ ] File deletion
   - [x] Folders list
-  - [ ] Directories creation
+  - [x] Subfolder creation
+  - [ ] File uploading in subfolders deeper in the tree (actual : 2 levels)
+
 
 - Pronote :
   - [x] Lessons content
@@ -35,7 +37,7 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [ ] Auto sync (every x minutes or when a new homework is published)
 
 - Misc :
-  - [ ] Version number in help command
+  - [x] Version number in help command
 
 
 # Author
