@@ -25,10 +25,11 @@ You can contribute by submitting pull requests, or opening an issue to describe 
   - [x] Upload files from Discord (in adapted folder)
   - [ ] Create evaluations that can be uploaded and then gathered by teacher
   - [x] Files list
-  - [ ] File delete
+  - [ ] File deletion
   - [x] Folders list
   - [x] Subfolder creation
   - [ ] File uploading in subfolders deeper in the tree (actual : 2 levels)
+
 
 - Pronote :
   - [x] Lessons content
