@@ -1,0 +1,7 @@
+save_credentials: True
+save_credentials_backend: file
+save_credentials_file: driveAuth.cred
+
+get_refresh_token: True
+
+client_config_file: client_secrets.json

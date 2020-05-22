@@ -3,3 +3,4 @@ credential.py
 **.tmp
 discord.log
 client_secrets.json
+driveAuth.cred

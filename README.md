@@ -12,6 +12,7 @@ ProBotE is a Discord bot to automate actions linked to Pronote and Google Drive 
 - Install dependencies (pip3 install discord pronotepy pydrive)
 - Edit credentials.py.sample with your own values and rename it credential.py
 - Download your API key in .json, and copy it there under the name "client_secrets.json"
+- Create a blank file named 'driveAuth.cred'
 - Start that bot with python3 probote.py
 
 # How to contribute ?
