@@ -46,8 +46,8 @@ class GDrive():
             i+=1
         return titlesList
 
-    def parseFolderArgument(self, primaryFolder:int, secondaryFolder:int):
-        primaryFolderId, secondaryFolderId, folderId = -1
+    def parseFolderArgument(self, primaryFolder = -1, secondaryFolder = -1):
+        folderId = -1
         self.updateFolderHierarchy()
         try:
             primaryFolderId = self.folderHierarchy['general_folder']['subfolders'][primaryFolder]['id']
