@@ -1,8 +1,6 @@
 #
 # Copyright (c) 2020 by Alexis LEBEL. Released under MIT License
 #
-import os
-import sys
 import credential
 import datetime
 import pronotepy
